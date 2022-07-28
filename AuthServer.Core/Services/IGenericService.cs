@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Core.Services
 {
-    public interface IServiceGeneric<TEntity,TDto> where TEntity : class where TDto : class
+    public interface IGenericService<TEntity,TDto> where TEntity : class where TDto : class
     {
         Task<Response<TDto>> GetByIdAsync(int id);
         Task<Response<IEnumerable<TDto>>> GetAllAsync();
