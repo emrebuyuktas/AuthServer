@@ -21,7 +21,7 @@ namespace AuthServer.Data
             _context.SaveChanges();
         }
 
-        public Task CommitAsync()
+        public async Task CommitAsync()
         {
             await _context.SaveChangesAsync();
         }

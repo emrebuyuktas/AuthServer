@@ -28,3 +28,4 @@ namespace AuthServer.Data
             base.OnModelCreating(builder);
         }
     }
+}

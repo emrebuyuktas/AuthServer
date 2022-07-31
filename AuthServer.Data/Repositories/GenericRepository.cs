@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Data.Repositories
 {
-    internal class GenericRepository<Tentity> : IGenericRepository<Tentity> where Tentity : class
+    public class GenericRepository<Tentity> : IGenericRepository<Tentity> where Tentity : class
     {
         private readonly DbContext _context;
         private readonly DbSet<Tentity> _dbSet;

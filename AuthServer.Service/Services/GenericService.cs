@@ -63,7 +63,7 @@ namespace AuthServer.Service.Services
             var updatedEntity=ObjectMapper.Mapper.Map<TEntity>(entity);
             _genericRepository.Update(updatedEntity);
             await _unitOfWork.CommitAsync();
-
+            return Response<NoDataDto>.Success(204);
 
         }
 
