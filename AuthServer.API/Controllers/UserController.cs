@@ -1,5 +1,6 @@
 ﻿using AuthServer.Core.Dtos;
 using AuthServer.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,13 +17,14 @@ namespace AuthServer.API.Controllers
             _userService = userService;
         }
 
-        //api/user
+        
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateUserDto createUserDto)
         {
             return ActionResultInstance(await _userService.CreateUserAsync(createUserDto));
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetUser()
         {

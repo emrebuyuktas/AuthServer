@@ -40,29 +40,30 @@ builder.Services.AddIdentity<UserApp, IdentityRole>(options =>
 }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
-builder.Configuration.GetSection("TokenOption").Bind(new CustomTokenOption());
+builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOption"));
 
 var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+builder.Services.Configure<List<Client>>(builder.Configuration.GetSection("Clients"));
 
-builder.Configuration.GetSection("Clients").Bind(new List<Client>());
 
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opt =>
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
 {
-    opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+    opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
     {
         ValidIssuer = tokenOptions.Issuer,
         ValidAudience = tokenOptions.Audience[0],
         IssuerSigningKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
-        ValidateIssuerSigningKey =true,
-        ValidateAudience=true,
-        ValidateIssuer=true,
-        ValidateLifetime=true,
-        ClockSkew=TimeSpan.Zero
-    };
 
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = true,
+        ValidateIssuer = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
 });
 
 
@@ -83,7 +84,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

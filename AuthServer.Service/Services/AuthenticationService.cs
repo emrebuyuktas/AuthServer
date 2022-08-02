@@ -49,6 +49,7 @@ namespace AuthServer.Service.Services
             }
             else
             {
+                userRefreshToken = new UserRefreshToken();
                 userRefreshToken.Code = token.RefreshToken;
                 userRefreshToken.Expiration = token.RefreshTokenExpiration;
             }
