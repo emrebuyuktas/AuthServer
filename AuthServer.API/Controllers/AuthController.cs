@@ -1,10 +1,12 @@
 ﻿using AuthServer.Core.Dtos;
 using AuthServer.Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthServer.API.Controllers
 {
+    
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : CustomBaseController
