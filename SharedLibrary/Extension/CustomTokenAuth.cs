@@ -14,6 +14,7 @@ namespace SharedLibrary.Extension
     {
         public static void AddCustomTokenAuth(this IServiceCollection services, CustomTokenOption tokenOptions)
         {
+            var val=
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
